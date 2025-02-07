@@ -118,7 +118,7 @@ class ComFeModel(nn.Module):
         pred = paint.argmax(dim=1)
         paint_map_idx = paint_map[torch.arange(paint.shape[0]),:,:, pred]
 
-        paint_map_idx = nn.functional.interpolate(paint_map_idx[:, None, :, :], (224,224), mode='bilinear')
+        paint_map_idx = nn.functional.interpolate(paint_map_idx[:, None, :, :], (256,256), mode='bilinear')
         paint_map_idx = paint_map_idx.squeeze()
 
         return paint_map_idx

@@ -275,9 +275,18 @@ class FunnyBirds(Dataset):
         
         image = Image.open(path)
     
-        image = transforms.ToTensor()(image)[:-1,:,:] # remove alpha
-        if self.transform != None:
-            image = self.transform(image)
+
+        from goo.augmentations.center_crop import CenterCropAugment
+        IMAGENET_NORMALIZE = {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]}
+        # transform = CenterCropAugment(crop_size = 224, resize=256, stretch=True, normalize=IMAGENET_NORMALIZE) # get best accuracy when this is done...
+        transform = CenterCropAugment(crop_size = 224, resize=224, stretch=True, normalize=IMAGENET_NORMALIZE)
+
+        image = image.convert('RGB')
+        image = transform(image)[0]
+
+        # image = transforms.ToTensor()(image)[:-1,:,:] # remove alpha
+        # if self.transform != None:
+        #     image = self.transform(image)
         
         sample['image'] = image.unsqueeze(0)
 
@@ -292,9 +301,17 @@ class FunnyBirds(Dataset):
         
         image = Image.open(path)
     
-        image = transforms.ToTensor()(image)[:-1,:,:] # remove alpha
-        if self.transform != None:
-            image = self.transform(image)
+        from goo.augmentations.center_crop import CenterCropAugment
+        IMAGENET_NORMALIZE = {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]}
+        # transform = CenterCropAugment(crop_size = 224, resize=256, stretch=True, normalize=IMAGENET_NORMALIZE) # get best accuracy when this is done...
+        transform = CenterCropAugment(crop_size = 224, resize=224, stretch=True, normalize=IMAGENET_NORMALIZE)
+
+        image = image.convert('RGB')
+        image = transform(image)[0]
+
+        # image = transforms.ToTensor()(image)[:-1,:,:] # remove alpha
+        # if self.transform != None:
+        #     image = self.transform(image)
         
         sample['image'] = image.unsqueeze(0)
 

@@ -1,3 +1,3 @@
 python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
 
-python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
