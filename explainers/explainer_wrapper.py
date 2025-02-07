@@ -4,11 +4,12 @@ from torchvision import transforms
 
 import numpy as np
 from abc import abstractmethod
-from captum.attr import LayerAttribution
+# from captum.attr import LayerAttribution
 from PIL import Image
 
 from models.ViT.ViT_explanation_generator import Baselines, LRP
 
+from pdb import set_trace as pb
 
 class AbstractExplainer():
     def __init__(self, explainer, baseline = None):
@@ -193,6 +194,27 @@ class CustomExplainer(AbstractExplainer):
     #def get_p_thresholds(self):
     #    return np.linspace(0.01, 0.50, num=80)
 
+# ====================================================
+
+class ComFeExplainer(AbstractExplainer):
+    def __init__(self, model):
+        self.model = model
+
+    def explain(self, input):
+        pb()
+        return 0
+    
+    def get_important_parts(self, image, part_map, target, colors_to_part, thresholds, with_bg = False):
+        pb()
+        return 0
+    
+    def get_part_importance(self, image, part_map, target, colors_to_part, with_bg = False):
+        pb()
+        return 0
+
+    # if not inheriting from AbstractExplainer you need to add this function to your class as well
+    #def get_p_thresholds(self):
+    #    return np.linspace(0.01, 0.50, num=80)
 
 
 

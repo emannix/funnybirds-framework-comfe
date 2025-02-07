@@ -4,13 +4,15 @@ import torch
 import json
 from PIL import Image, ImageDraw
 import requests
-from base64 import decodestring, decodebytes
+from base64 import decodebytes # decodestring, 
 import numpy as np
 import random
 import itertools
 
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
+
+from pdb import set_trace as pb
 
 class FunnyBirds(Dataset):
     """FunnyBirds dataset."""
@@ -57,9 +59,18 @@ class FunnyBirds(Dataset):
                                 str(idx).zfill(6)+'.png')
         image = Image.open(img_path)
     
-        image = transforms.ToTensor()(image)[:-1,:,:] # remove alpha
-        if self.transform != None:
-            image = self.transform(image)
+
+        from goo.augmentations.center_crop import CenterCropAugment
+        IMAGENET_NORMALIZE = {"mean": [0.485, 0.456, 0.406], "std": [0.229, 0.224, 0.225]}
+        # transform = CenterCropAugment(crop_size = 224, resize=256, stretch=True, normalize=IMAGENET_NORMALIZE) # get best accuracy when this is done...
+        transform = CenterCropAugment(crop_size = 224, resize=224, stretch=True, normalize=IMAGENET_NORMALIZE)
+
+        image = image.convert('RGB')
+        image = transform(image)[0]
+
+        # image = transforms.ToTensor()(image)[:-1,:,:] # remove alpha
+        # if self.transform != None:
+        #     image = self.transform(image)
 
         params = self.params[idx]
 

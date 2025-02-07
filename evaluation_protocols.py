@@ -7,6 +7,8 @@ from torch.utils.data import DataLoader
 
 from datasets.funny_birds import FunnyBirds
 
+from pdb import set_trace as pb
+
 def accuracy_protocol(model, args):
 
     class Summary(Enum):
@@ -88,6 +90,8 @@ def accuracy_protocol(model, args):
 
         # compute output
         output = model(images)
+
+        # pb()
 
         # measure accuracy and record loss
         acc1, acc5 = accuracy(output, target, topk=(1, 5))

@@ -2,25 +2,27 @@ import argparse
 import random
 
 import torch
-from captum.attr import IntegratedGradients, InputXGradient
+# from captum.attr import IntegratedGradients, InputXGradient
 
-from models.resnet import resnet50
-from models.vgg import vgg16
-from models.ViT.ViT_new import vit_base_patch16_224
-from models.ViT.ViT_LRP import vit_base_patch16_224 as vit_LRP
-from models.model_wrapper import StandardModel, ViTModel
+# from models.resnet import resnet50
+# from models.vgg import vgg16
+# from models.ViT.ViT_new import vit_base_patch16_224
+# from models.ViT.ViT_LRP import vit_base_patch16_224 as vit_LRP
+# from models.model_wrapper import StandardModel, ViTModel
 from evaluation_protocols import accuracy_protocol, controlled_synthetic_data_check_protocol, single_deletion_protocol, preservation_check_protocol, deletion_check_protocol, target_sensitivity_protocol, distractibility_protocol, background_independence_protocol
-from explainers.explainer_wrapper import CaptumAttributionExplainer, ViTGradCamExplainer, ViTRolloutExplainer, ViTCheferLRPExplainer, CustomExplainer
+# from explainers.explainer_wrapper import CaptumAttributionExplainer, ViTGradCamExplainer, ViTRolloutExplainer, ViTCheferLRPExplainer, CustomExplainer
 
+from explainers.explainer_wrapper import ComFeExplainer
+from models.model_wrapper import ComFeModel
 
 parser = argparse.ArgumentParser(description='FunnyBirds - Explanation Evaluation')
 parser.add_argument('--data', metavar='DIR', required=True,
                     help='path to dataset (default: imagenet)')
 parser.add_argument('--model', required=True,
-                    choices=['resnet50', 'vgg16', 'vit_b_16'],
+                    choices=['resnet50', 'vgg16', 'vit_b_16', 'comfe'],
                     help='model architecture')
 parser.add_argument('--explainer', required=True,
-                    choices=['IntegratedGradients', 'InputXGradient', 'Rollout', 'CheferLRP', 'CustomExplainer'],
+                    choices=['IntegratedGradients', 'InputXGradient', 'Rollout', 'CheferLRP', 'CustomExplainer', 'comfe'],
                     help='explainer')
 parser.add_argument('--checkpoint_name', type=str, required=False, default=None,
                     help='checkpoint name (including dir)')
@@ -74,6 +76,17 @@ def main():
         else:
             model = vit_base_patch16_224(num_classes = 50)
         model = ViTModel(model)
+    elif args.model == 'comfe':
+        import sys
+        sys.path.append('/home/unimelb.edu.au/nbloomfield/OneDrive/PhD/Repositories/lightly-wrapper/lightly_play')
+        from goo.methods.interpretable.prototypes_supervised2_global2 import TSNE as ComFe
+        torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
+
+        model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+        comfe_model = ComFe.load_from_checkpoint(model_path)
+
+        explainer = ComFeExplainer(comfe_model)
+        model = ComFeModel(comfe_model, explainer)
     else:
         print('Model not implemented')
     
@@ -94,6 +107,8 @@ def main():
         explainer = ViTRolloutExplainer(model)
     elif args.explainer == 'CheferLRP':
         explainer = ViTCheferLRPExplainer(model)
+    elif args.explainer == 'comfe':
+        explainer = ComFeExplainer(comfe_model)
     elif args.explainer == 'CustomExplainer':
         ...
     else:
