@@ -55,6 +55,17 @@ parser.add_argument('--background_independence', default=False, action='store_tr
 
 
 
+# rsync -avzh   \
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3 v_interpretable/
+
+# rsync -avzh   \
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.d.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_1_1 v_interpretable/
+
+# rsync -avzh   \
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3 v_interpretable/
+
+
+
 
 def main():
     args = parser.parse_args()
@@ -76,13 +87,25 @@ def main():
         else:
             model = vit_base_patch16_224(num_classes = 50)
         model = ViTModel(model)
-    elif args.model == 'comfe':
+    elif 'comfe' in args.model:
         import sys
         sys.path.append('/home/unimelb.edu.au/nbloomfield/OneDrive/PhD/Repositories/lightly-wrapper/lightly_play')
         from goo.methods.interpretable.prototypes_supervised2_global2 import TSNE as ComFe
         torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
 
-        model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+        if args.explainer == 'comfe':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+        elif args.explainer == 'comfe_clip':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+        elif args.explainer == 'comfe_dino':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+        elif args.explainer == 'comfe_augreg':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+        elif args.explainer == 'comfe_dinov2':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+        elif args.explainer == 'comfe_mae':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+
         comfe_model = ComFe.load_from_checkpoint(model_path)
 
         explainer = ComFeExplainer(comfe_model)
@@ -107,7 +130,7 @@ def main():
         explainer = ViTRolloutExplainer(model)
     elif args.explainer == 'CheferLRP':
         explainer = ViTCheferLRPExplainer(model)
-    elif args.explainer == 'comfe':
+    elif args.explainer == 'comfe' or args.explainer == 'comfe_clip' or args.explainer == 'comfe_dino' or args.explainer == 'comfe_augreg' or args.explainer == 'comfe_dinov2' or args.explainer == 'comfe_mae':
         explainer = ComFeExplainer(comfe_model)
     elif args.explainer == 'CustomExplainer':
         ...
