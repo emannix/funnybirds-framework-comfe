@@ -54,10 +54,16 @@ parser.add_argument('--background_independence', default=False, action='store_tr
                     help='compute background dependence')
 
 
-
+# dinov2 wreg
 # rsync -avzh   \
 #   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3 v_interpretable/
 
+
+# rsync -avzh   \
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.d.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_1_1 v_interpretable/
+
+
+# 
 # rsync -avzh   \
 #   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.d.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_1_1 v_interpretable/
 
