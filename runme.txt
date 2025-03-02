@@ -1,1 +1,11 @@
-python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe_dinov2_wreg --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe_dinov2 --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe_dino --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe_clip --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe_augreg --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe --explainer comfe_mae --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0

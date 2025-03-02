@@ -19,7 +19,6 @@ parser = argparse.ArgumentParser(description='FunnyBirds - Explanation Evaluatio
 parser.add_argument('--data', metavar='DIR', required=True,
                     help='path to dataset (default: imagenet)')
 parser.add_argument('--model', required=True,
-                    choices=['resnet50', 'vgg16', 'vit_b_16', 'comfe'],
                     help='model architecture')
 parser.add_argument('--explainer', required=True,
                     choices=['IntegratedGradients', 'InputXGradient', 'Rollout', 'CheferLRP', 'CustomExplainer', 'comfe'],
@@ -58,18 +57,25 @@ parser.add_argument('--background_independence', default=False, action='store_tr
 # rsync -avzh   \
 #   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3 v_interpretable/
 
+# dinov2
+# rsync -avzh   \
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_21-19_5b4d5_final_plainseg_interpretable2_global_run_funnybirds_noreg_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_5 v_interpretable/
 
+# DINO
 # rsync -avzh   \
 #   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.d.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_1_1 v_interpretable/
 
-
-# 
+# CLIP
 # rsync -avzh   \
-#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.d.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_1_1 v_interpretable/
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_c_224.o.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pT_0_4 v_interpretable/
 
+# augreg
 # rsync -avzh   \
-#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3 v_interpretable/
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_23-48_18747_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.a_in21.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_2_3 v_interpretable/
 
+# MAE
+# rsync -avzh   \
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.m.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_3_4 v_interpretable/
 
 
 
@@ -99,18 +105,18 @@ def main():
         from goo.methods.interpretable.prototypes_supervised2_global2 import TSNE as ComFe
         torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
 
-        if args.explainer == 'comfe':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
-        elif args.explainer == 'comfe_clip':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
-        elif args.explainer == 'comfe_dino':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
-        elif args.explainer == 'comfe_augreg':
+        if args.explainer == 'comfe_dinov2_wreg':
             model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
         elif args.explainer == 'comfe_dinov2':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_21-19_5b4d5_final_plainseg_interpretable2_global_run_funnybirds_noreg_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_5/checkpoints/epoch_035.ckpt'
+        elif args.explainer == 'comfe_dino':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.d.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_1_1/checkpoints/epoch_044.ckpt'
+        elif args.explainer == 'comfe_clip':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_c_224.o.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pT_0_4/checkpoints/epoch_048.ckpt'
+        elif args.explainer == 'comfe_augreg':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_23-48_18747_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.a_in21.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_2_3/checkpoints/epoch_047.ckpt'
         elif args.explainer == 'comfe_mae':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.m.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_3_4/checkpoints/epoch_035.ckpt'
 
         comfe_model = ComFe.load_from_checkpoint(model_path)
 
