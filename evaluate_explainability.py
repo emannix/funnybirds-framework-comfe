@@ -21,7 +21,6 @@ parser.add_argument('--data', metavar='DIR', required=True,
 parser.add_argument('--model', required=True,
                     help='model architecture')
 parser.add_argument('--explainer', required=True,
-                    choices=['IntegratedGradients', 'InputXGradient', 'Rollout', 'CheferLRP', 'CustomExplainer', 'comfe'],
                     help='explainer')
 parser.add_argument('--checkpoint_name', type=str, required=False, default=None,
                     help='checkpoint name (including dir)')
