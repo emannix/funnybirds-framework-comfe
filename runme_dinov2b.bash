@@ -32,6 +32,6 @@ source /data/cephfs/punim0980/venvs/mysemiv4/bin/activate
 
 cd /data/cephfs/punim0980/cloned_repos/funnybirds-framework-comfe
 
-python evaluate_explainability.py --data /data/cephfs/punim0980/data/FunnyBirds --model comfe_dinov2_wreg --explainer comfe_dinov2_wreg --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
+python evaluate_explainability.py --data /data/cephfs/punim0980/data/FunnyBirds --model comfe_dinov2 --explainer comfe_dinov2 --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
 
 
