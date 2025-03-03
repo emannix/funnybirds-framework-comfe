@@ -9,6 +9,9 @@ from datasets.funny_birds import FunnyBirds
 
 from pdb import set_trace as pb
 
+quick_run = False
+
+
 def accuracy_protocol(model, args):
 
     class Summary(Enum):
@@ -146,6 +149,11 @@ def controlled_synthetic_data_check_protocol(model, explainer, args):
             mcsdc_for_thresholds[threshold] += max_J
         number_valid_samples += 1
 
+        if quick_run:
+            if number_valid_samples > 50:
+                break
+
+
         if args.nr_itrs == number_valid_samples:
             break
 
@@ -224,6 +232,9 @@ def single_deletion_protocol(model, explainer, args):
         
         correlations.append(correlation * 0.5 + 0.5)
 
+        if quick_run:
+            if number_valid_samples > 50:
+                break
 
         number_valid_samples += 1
 
@@ -279,6 +290,10 @@ def preservation_check_protocol(model, explainer, args):
                 scores_for_thresholds[threshold].append(0.)
 
         number_valid_samples += 1
+
+        if quick_run:
+            if number_valid_samples > 50:
+                break
 
         if args.nr_itrs == number_valid_samples:
             break
@@ -339,6 +354,9 @@ def deletion_check_protocol(model, explainer, args):
 
         number_valid_samples += 1
 
+        if quick_run:
+            if number_valid_samples > 50:
+                break
 
         if args.nr_itrs == number_valid_samples:
             break
@@ -460,6 +478,10 @@ def target_sensitivity_protocol(model, explainer, args):
         else:
             target_sensitivity_score.append(0.)
 
+        if quick_run:
+            if number_valid_samples > 50:
+                break
+
         number_valid_samples += 1
         if args.nr_itrs == number_valid_samples:
             break
@@ -550,9 +572,12 @@ def distractibility_protocol(model, explainer, args):
         for explanation_important_parts, threshold in zip(explanation_important_parts_for_thresholds, thresholds):
             J_current = len(set(explanation_important_parts).intersection(set(irrelevant_parts))) / len(irrelevant_parts)
             scores_for_thresholds[threshold].append(J_current)
-            
 
         number_valid_samples += 1
+
+        if quick_run:
+            if number_valid_samples > 50:
+                break
 
         if args.nr_itrs == number_valid_samples:
             break
@@ -622,6 +647,10 @@ def background_independence_protocol(model, args):
                 number_relevant_background_parts += 1.
         
         number_valid_samples += 1
+
+        if quick_run:
+            if number_valid_samples > 50:
+                break
 
         if args.nr_itrs == number_valid_samples:
             break

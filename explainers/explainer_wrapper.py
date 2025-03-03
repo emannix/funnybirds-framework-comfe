@@ -199,6 +199,9 @@ class CustomExplainer(AbstractExplainer):
 class ComFeExplainer(AbstractExplainer):
     def __init__(self, model):
         self.model = model
+        self.fixed_attribution=False
+        self.attribution_style = 'mean'
+        self.sum_attribution = False
 
     def explain(self, input, target):
         z_patch = self.model.backbone(input)
@@ -231,6 +234,9 @@ class ComFeExplainer(AbstractExplainer):
         attribution = self.explain(image, target=target)
         #m = nn.ReLU()
         #positive_attribution = m(attribution)
+        if self.fixed_attribution:
+            attribution[:,:] = 0.02
+
 
         part_importances = self.get_part_importance(image, part_map, target, colors_to_part, with_bg = with_bg)
         #total_attribution_in_parts = 0
@@ -241,8 +247,12 @@ class ComFeExplainer(AbstractExplainer):
         for threshold in thresholds:
             important_parts = []
             for key in part_importances.keys():
-                if part_importances[key] > (attribution.sum() * threshold):
-                    important_parts.append(key)
+                if self.sum_attribution:
+                    if part_importances[key] > (attribution.sum() * threshold):
+                        important_parts.append(key)
+                else:
+                    if part_importances[key] > (threshold):
+                        important_parts.append(key)
             important_parts_for_thresholds.append(important_parts)
         return important_parts_for_thresholds
 
@@ -257,8 +267,11 @@ class ComFeExplainer(AbstractExplainer):
         """
         assert image.shape[0] == 1 # B = 1
         attribution = self.explain(image, target=target)
+        if self.fixed_attribution:
+            attribution[:,:] = 0.02
         
         part_importances = {}
+        part_importances_count = {}
 
         dilation1 = nn.MaxPool2d(5, stride=1, padding=2)
         for part_color in colors_to_part.keys():
@@ -270,14 +283,29 @@ class ComFeExplainer(AbstractExplainer):
             
             color_available_dilated = dilation1(color_available)
             attribution_in_part = attribution * color_available_dilated
-            attribution_in_part = attribution_in_part.sum()
+            if self.attribution_style == 'sum':
+                attribution_in_part = attribution_in_part.sum()
+            elif self.attribution_style == 'mean':
+                if color_available_dilated.sum() == 0:
+                    attribution_in_part = torch.tensor(0.0)
+                else:
+                    attribution_in_part = attribution_in_part[color_available_dilated>0].mean()
 
             part_string = colors_to_part[part_color]
             part_string = ''.join((x for x in part_string if x.isalpha()))
             if part_string in part_importances.keys():
                 part_importances[part_string] += attribution_in_part.item()
+                if attribution_in_part > 0:
+                    part_importances_count[part_string] += 1
             else:
                 part_importances[part_string] = attribution_in_part.item()
+                part_importances_count[part_string] = 0
+                if attribution_in_part > 0:
+                    part_importances_count[part_string] += 1
+
+        if self.attribution_style == 'mean':
+            for part_string in part_importances.keys():
+                part_importances[part_string] = part_importances[part_string]/max(part_importances_count[part_string], 1)
 
         if with_bg:
             for i in range(50):
@@ -289,7 +317,13 @@ class ComFeExplainer(AbstractExplainer):
                 color_available_dilated = dilation1(color_available)
 
                 attribution_in_part = attribution * color_available_dilated
-                attribution_in_part = attribution_in_part.sum()
+                if self.attribution_style == 'sum':
+                    attribution_in_part = attribution_in_part.sum()
+                elif self.attribution_style == 'mean':
+                    if color_available_dilated.sum() == 0:
+                        attribution_in_part = torch.tensor(0.0)
+                    else:
+                        attribution_in_part = attribution_in_part[color_available_dilated>0].mean()
                 
                 bg_string = 'bg_' + str(i).zfill(3)
                 part_importances[bg_string] = attribution_in_part.item()

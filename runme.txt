@@ -16,3 +16,17 @@ python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Deskto
 
 python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe_dinov2_wreg-vits --explainer comfe_dinov2_wreg-vits --accuracy --controlled_synthetic_data_check --target_sensitivity --single_deletion --preservation_check --deletion_check --distractibility --background_independence --gpu 0
 
+
+# ===============================
+
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe_dinov2 --explainer comfe_dinov2 --controlled_synthetic_data_check --gpu 0
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe_dinov2 --explainer comfe_dinov2 --single_deletion --gpu 0
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe_dinov2 --explainer comfe_dinov2 --target_sensitivity --gpu 0
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe_dinov2 --explainer comfe_dinov2 --distractibility --gpu 0
+
+python evaluate_explainability.py --data /home/unimelb.edu.au/nbloomfield/Desktop/phd-data/funnybirds/FunnyBirds --model comfe_dinov2_wreg --explainer comfe_dinov2_wreg --distractibility --gpu 0
+
