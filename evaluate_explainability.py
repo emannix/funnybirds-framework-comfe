@@ -112,22 +112,25 @@ def main():
         from goo.methods.interpretable.prototypes_supervised2_global2 import TSNE as ComFe
         torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
 
+        model_dir = 'v_interpretable'
+        model_dir = 'output/local'
+
         if args.explainer == 'comfe_dinov2_wreg':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
+            model_path = '../../lightly-wrapper/'+model_dir+'/2025-02-07_10-12_36f53_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_3/checkpoints/epoch_037.ckpt'
         elif args.explainer == 'comfe_dinov2':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_21-19_5b4d5_final_plainseg_interpretable2_global_run_funnybirds_noreg_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_5/checkpoints/epoch_035.ckpt'
+            model_path = '../../lightly-wrapper/'+model_dir+'/2025-03-01_21-19_5b4d5_final_plainseg_interpretable2_global_run_funnybirds_noreg_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_5/checkpoints/epoch_035.ckpt'
         elif args.explainer == 'comfe_dino':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.d.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_1_1/checkpoints/epoch_044.ckpt'
+            model_path = '../../lightly-wrapper/'+model_dir+'/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.d.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_1_1/checkpoints/epoch_044.ckpt'
         elif args.explainer == 'comfe_clip':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_c_224.o.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pT_0_4/checkpoints/epoch_048.ckpt'
+            model_path = '../../lightly-wrapper/'+model_dir+'/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_c_224.o.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pT_0_4/checkpoints/epoch_048.ckpt'
         elif args.explainer == 'comfe_augreg':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_23-48_18747_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.a_in21.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_2_3/checkpoints/epoch_047.ckpt'
+            model_path = '../../lightly-wrapper/'+model_dir+'/2025-03-01_23-48_18747_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.a_in21.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_2_3/checkpoints/epoch_047.ckpt'
         elif args.explainer == 'comfe_mae':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.m.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_3_4/checkpoints/epoch_035.ckpt'
+            model_path = '../../lightly-wrapper/'+model_dir+'/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.m.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_3_4/checkpoints/epoch_035.ckpt'
         elif args.explainer == 'comfe_dinov2-vits':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-03-03_11-19_7089f_final_plainseg_interpretable2_global_run_funnybirds_noreg_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_2/checkpoints/epoch_049.ckpt'
+            model_path = '../../lightly-wrapper/'+model_dir+'/2025-03-03_11-19_7089f_final_plainseg_interpretable2_global_run_funnybirds_noreg_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_2/checkpoints/epoch_049.ckpt'
         elif args.explainer == 'comfe_dinov2_wreg-vits':
-            model_path = '../../lightly-wrapper/v_interpretable/2025-03-03_11-19_3575d_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_4/checkpoints/epoch_029.ckpt'
+            model_path = '../../lightly-wrapper/'+model_dir+'/2025-03-03_11-19_3575d_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_4/checkpoints/epoch_029.ckpt'
 
         comfe_model = ComFe.load_from_checkpoint(model_path)
 
