@@ -153,7 +153,7 @@ def main():
         explainer = ViTRolloutExplainer(model)
     elif args.explainer == 'CheferLRP':
         explainer = ViTCheferLRPExplainer(model)
-    elif args.explainer == 'comfe' or args.explainer == 'comfe_clip' or args.explainer == 'comfe_dino' or args.explainer == 'comfe_augreg' or args.explainer == 'comfe_dinov2' or args.explainer == 'comfe_mae':
+    elif 'comfe' in args.explainer:
         explainer = ComFeExplainer(comfe_model)
     elif args.explainer == 'CustomExplainer':
         ...
