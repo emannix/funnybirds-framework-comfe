@@ -109,6 +109,7 @@ def main():
     elif 'comfe' in args.model:
         import sys
         sys.path.append('/home/unimelb.edu.au/nbloomfield/OneDrive/PhD/Repositories/lightly-wrapper/lightly_play')
+        sys.path.append('/data/cephfs/punim0980/lightly-wrapper/lightly_play')
         from goo.methods.interpretable.prototypes_supervised2_global2 import TSNE as ComFe
         torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
 
