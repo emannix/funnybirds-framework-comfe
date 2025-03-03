@@ -77,6 +77,14 @@ parser.add_argument('--background_independence', default=False, action='store_tr
 #   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.m.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_3_4 v_interpretable/
 
 
+# dinov2-vits
+# rsync -avzh   \
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-03_11-19_7089f_final_plainseg_interpretable2_global_run_funnybirds_noreg_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_2 v_interpretable/
+
+# dinov2 wreg-vits
+# rsync -avzh   \
+#   nbloomfield@spartan.hpc.unimelb.edu.au:/data/cephfs/punim0980/lightly-wrapper/output/local/2025-03-03_11-19_3575d_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_4 v_interpretable/
+
 
 def main():
     args = parser.parse_args()
@@ -116,6 +124,10 @@ def main():
             model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_23-48_18747_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.a_in21.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_2_3/checkpoints/epoch_047.ckpt'
         elif args.explainer == 'comfe_mae':
             model_path = '../../lightly-wrapper/v_interpretable/2025-03-01_21-19_46be7_final_plainseg_interpretable2_global_run_funnybirds_otherbackbones_1-6_d_o.t_f_e_p.n.n.b.f_m_b_ph16_224.m.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTru_3_4/checkpoints/epoch_035.ckpt'
+        elif args.explainer == 'comfe_dinov2-vits':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-03-03_11-19_7089f_final_plainseg_interpretable2_global_run_funnybirds_noreg_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_2/checkpoints/epoch_049.ckpt'
+        elif args.explainer == 'comfe_dinov2_wreg-vits':
+            model_path = '../../lightly-wrapper/v_interpretable/2025-03-03_11-19_3575d_final_plainseg_interpretable2_global_run_funnybirds_1-6_d_o.t_f_e_p.n.n.b_c.n_cs50.n.n.b_c.n_c_ps150.n.n.b_c.l_pTrue.n.n.b_c.l_p_pTrue.n.n.b_c.l_p_cTrue.n.n_0_4/checkpoints/epoch_029.ckpt'
 
         comfe_model = ComFe.load_from_checkpoint(model_path)
 
